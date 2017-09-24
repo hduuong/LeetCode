@@ -1,0 +1,27 @@
+Insertion Sort List
+Sort a linkedlist using insertion sort
+
+Space: O(1)
+Time: worst case O(n^2)
+
+public ListNode InsertionSortList(ListNode head) {
+    if (head==null) return head;
+    
+    ListNode dummy = new ListNode(0);
+    ListNode prev = dummy;
+    ListNode current = head;
+    ListNode next = null;
+    
+    while(current!=null) {
+        next = current.next;
+        while(prev.next != null && prev.next.val < current.val) {
+            prev = prev.next;
+        }
+        
+        current.next = prev.next;
+        prev.next = current;
+        current = next;
+        prev = dummy;
+    }
+    return dummy.next;
+}
