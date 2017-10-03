@@ -1,0 +1,15 @@
+We have to maximize the Area that can be formed between the vertical lines using the shorter line 
+as length and the distance between the lines as the width of the rectangle forming the area.
+
+public static int maxArea(int[] heights) {
+    int res = 0, lo = 0, hi = heights.length - 1;
+    while (lo < hi) {
+        res = Math.max(res, Math.min(heights[lo], heights[hi]) * (hi-lo));
+        if (heights[lo] < heights[hi) {
+            lo++;
+        } else {
+            hi--;
+        }
+    }
+    return res;
+}
