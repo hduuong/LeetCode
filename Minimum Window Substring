@@ -1,0 +1,49 @@
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+For example,
+S = "ADOBECODEBANC"
+T = "ABC"
+Minimum window is "BANC".
+
+Note:
+If there is no such window in S that covers all characters in T, return the empty string "".
+
+If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
+
+final int size = 256;
+
+pubic String findSubString(String s, String p) {
+    if (s == null || p == null || s.legnth() == 0 || p.length() == 0) return "";
+    int len1 = s.length(), len2 = p.length();
+    if (len1 < len2) return "";
+    
+    int[] sHash = new int[size];
+    int[] pHash = new int[size];
+    
+    for(int i = 0; i < len2; i++) pHash[p.charAt(i)]++;
+    int startIndex = -1, minLen = Integer.MAX_VALUE;
+    int count = 0, start = 0;
+    
+    for(int j = 0; j < len1; j++) {
+        sHash[s.charAt(j)]++;
+        if (pHash[s.charAt(j)] != 0 &&
+            sHash[s.charAt(j)] <= p.Hash[s.charAt(j)]) count++;
+            
+        if (count == len2) {
+            while (sHash[s.charAt(start)] > pHash[s.charAt(start)]
+                || pHash[s.charAt(start)] == 0) {
+                if (sHash[s.charAt(start)] > pHash[s.charAt(start)])
+                    sHash[s.charAt(start)]--;
+                start++;
+            }
+            
+            int window = j - start + 1;
+            if (minLen > window) {
+                minLen = window;
+                startIndex = start;
+            }
+        }
+    }
+    if (startIndex == -1) return "";
+    return s.substring(startIndex, startIndex+minLen);
+}
