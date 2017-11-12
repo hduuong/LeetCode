@@ -1,0 +1,46 @@
+Given a binary search tree and a target node K. The task is to find the node with minimum absolute difference with given target value K.
+
+public class Solution { 
+    int goal;
+    int min = Integer.MAX_VALUE;
+    public int findClosest(Node root, int v) {
+        findClosestHelper(root, v);
+        return goal;
+    }
+
+    private void findClosestHelper(Node n, int v) {
+        if (n == null) return;
+        
+        int diff = Math.abs(n.data - v);
+        
+        if (diff == 0) {    //if v is a value in BST, set goal and return;
+            goal = n.data;
+            return;
+        }
+        if (diff < min) {
+            min = diff;
+            goal = n.data;
+        }
+        findClosest((v < n.data) ? n.left : n.rght. v);
+    }
+}
+
+public class Solution {
+    public int findClosest(Node root, int v) {
+        int min = Integer.MAX_VALUE;
+        int res = v;
+        while (root != null) {
+            int diff = Math.abs(root.data - v);
+            if (diff == 0) {
+                res = root.data;
+                break;
+            }
+            if (diff < min) {
+                min = diff;
+                res = root.data;
+            }
+            root = (root.data < v) ? root.right : root.left;
+        }
+        return res;
+    }
+}
